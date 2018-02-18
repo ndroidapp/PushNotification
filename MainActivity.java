@@ -1,12 +1,11 @@
 package com.example.noor.pushnotification;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -20,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Toast.makeText(this, "onStart", Toast.LENGTH_SHORT).show();
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser == null) {
@@ -34,12 +32,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
-        Toast.makeText(this, "onCreate", Toast.LENGTH_SHORT).show();
 
         mProfileLabel = findViewById(R.id.profileLabel);
         mUsersLabel = findViewById(R.id.usersLabel);
         mNotificationLabel = findViewById(R.id.notificationLabel);
         mMainPager = findViewById(R.id.mainPager);
+
+        mMainPager.setOffscreenPageLimit(2);
 
         mPagerViewAdapter = new PagerViewAdapter(getSupportFragmentManager());
         mMainPager.setAdapter(mPagerViewAdapter);
